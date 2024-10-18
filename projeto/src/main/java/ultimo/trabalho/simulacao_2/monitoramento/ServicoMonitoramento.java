@@ -27,8 +27,8 @@ public class ServicoMonitoramento {
 
         System.out.println("ServicoMonitoramento aguardando mensagens...");
 
-        DeliverCallback callbackEntrega = (consumerTag, entrega) -> {
-            String mensagem = new String(entrega.getBody(), StandardCharsets.UTF_8);
+        DeliverCallback callbackEntrega = (consumerTag, receptor) -> {
+            String mensagem = new String(receptor.getBody(), StandardCharsets.UTF_8);
             System.out.println("ServicoMonitoramento recebeu: " + mensagem);
             System.out.println();
 
@@ -60,10 +60,10 @@ public class ServicoMonitoramento {
                         acaoNecessaria = "Liberar memória ou reiniciar serviço";
                     } else if (responseTime > 500) {
                         problema = "Tempo de resposta alto: " + responseTime + "ms";
-                        acaoNecessaria = "Analisar desempenho do serviço";
+                        acaoNecessaria = "Analisar conexão do serviço";
                     } else {
-                        problema = "Anomalia detectada";
-                        acaoNecessaria = "Investigar causa";
+                        problema = "Desconhecido";
+                        acaoNecessaria = "Investigar problema";
                     }
 
                     ordemServico.put("problem", problema);
